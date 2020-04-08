@@ -19,12 +19,12 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
 def validate_username(self,inn):
-    inn = Book.query.filter_by(inn=inn.data).first()
-    if user:
-        raise ValidationError('inn with that username already exists')
+    inn = Store.query.filter_by(inn=inn.data).first()
+    if inn:
+        raise ValidationError('Store with that inn already exists')
 
 
 def validate_email(self, email):
-    inn = Book.query.filter_by(email=email.data).first()
+    inn = Store.query.filter_by(email=email.data).first()
     if user:
-        raise ValidationError('inn with that email already exists')
+        raise ValidationError('Store with that inn already exists')
