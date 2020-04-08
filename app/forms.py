@@ -27,4 +27,4 @@ def validate_inn(self,inn):
 def validate_email(self, email):
     inn = Store.query.filter_by(email=email.data).first()
     if user:
-        raise ValidationError('Store with that inn already exists')
+        raise ValidationError('Store with that email already exists')
