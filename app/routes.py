@@ -24,7 +24,7 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = Store(inn=form.username.data, email=form.email.data)
+        user = Store(inn=form.inn.data, email=form.email.data)
         user.set_password(form.password2.data)
         db.session.add(user)
         db.session.commit()
@@ -37,9 +37,9 @@ def login():
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = Store.query.filter_by(inn = form.username.data).first()
+        user = Store.query.filter_by(inn = form.inn.data).first()
         if user is None:
-            flash('Invalid username. Try login again')
+            flash('Invalid inn. Try login again')
             return redirect(url_for('login'))
         elif not user.check_password(form.password.data):
             flash('Invalid password. Try login again')
