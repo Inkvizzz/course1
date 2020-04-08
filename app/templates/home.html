@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <h1>Hi, {{current_user.inn}}</h1>
+        {% for book in books %}
+            <div>
+                <p>
+                    <b>{{book.store.inn}}</b> содержит: {{book.bookname}}
+                </p>
+            </div>
+        {% endfor %}
+{% endblock %}

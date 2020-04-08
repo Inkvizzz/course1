@@ -1,0 +1,27 @@
+<html>
+    <head>
+        {% if title %}
+            <title>{{ title }} - Book App</title>
+        {% else %}
+            <title>Book App</title>
+        {% endif %}
+    </head>
+    <body>
+        <div> Blog: 
+            <a href="{{url_for('home')}}">Home </a>
+            
+            |
+            {% if current_user.is_anonymous %}
+            <a href="{{url_for('login')}}">Login</a>
+            |
+            <a href="{{url_for('register')}}">Register</a>
+            {% else %}
+            |
+            <a href="{{url_for('logout')}}">Log out</a>
+            <hr>
+            {% endif %}
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
+</html>
