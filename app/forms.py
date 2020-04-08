@@ -18,8 +18,8 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField('Repeat password', validators=[DataRequired(), EqualTo('password1')])
     submit = SubmitField('Register')
 
-def validate_username(self,username):
-    user = Store.query.filter_by(inn=username.data).first()
+def validate_username(self,inn):
+    user = Store.query.filter_by(inn=inn.data).first()
     if user:
         raise ValidationError('User with that username already exists')
 
