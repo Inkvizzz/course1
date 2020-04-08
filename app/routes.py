@@ -10,12 +10,9 @@ from werkzeug.urls import url_parse
 @app.route('/home/', methods=['GET'])
 @login_required
 def home():
-    return render_template('home.html')
-
-@app.route('/home/<storename>', methods=['GET'])
-def store(storename):
-    books = Book.query.all()
     return render_template('home.html', books=books)
+
+
 
 
 @app.route('/register', methods=['GET','POST'])
@@ -24,9 +21,9 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = Store(inn=form.inn.data, email=form.email.data)
-        user.set_password(form.password2.data)
-        db.session.add(user)
+        store = Store(inn=form.inn.data, email=form.email.data)
+        store.set_password(form.password2.data)
+        db.session.add(store)
         db.session.commit()
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
@@ -37,15 +34,15 @@ def login():
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = Store.query.filter_by(inn = form.inn.data).first()
-        if user is None:
+        store = Store.query.filter_by(inn = form.inn.data).first()
+        if store is None:
             flash('Invalid inn. Try login again')
             return redirect(url_for('login'))
-        elif not user.check_password(form.password.data):
+        elif not store.check_password(form.password.data):
             flash('Invalid password. Try login again')
             return redirect(url_for('login'))
         else:
-            login_user(user, remember=form.remember_me.data)
+            login_user(store, remember=form.remember_me.data)
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('home')
